@@ -152,21 +152,17 @@ class APIx
 
         $response = null;
 
-        try {
-            $client = new Client();
-            $response = $client->request('POST', self::$api, [
-                'form_params' => [
-                    'sender' => self::$senderName ?? config('api-x.sender_name'),
-                    'to' => self::$recipient,
-                    'message' => self::$message,
-                    'type' => 0,
-                    'routing' => 3,
-                    'token' => self::$apiToken
-                ]
-            ]);
-        } catch (GuzzleException $e) {
-            dd($e->getMessage());
-        }
+        $client = new Client();
+		$response = $client->request('POST', self::$api, [
+			'form_params' => [
+				'sender' => self::$senderName ?? config('api-x.sender_name'),
+				'to' => self::$recipient,
+				'message' => self::$message,
+				'type' => 0,
+				'routing' => 3,
+				'token' => self::$apiToken
+			]
+		]);
 
         return $response;
     }
@@ -183,25 +179,21 @@ class APIx
 
         $response = null;
 
-        try {
-            $client = new Client();
+        $client = new Client();
 
-            $response = $client->request('POST', self::$api, [
-                'form_params' => [
-                    'checkbalance' => 1,
-                    'token' => self::$apiToken
-                ]
-            ]);
+		$response = $client->request('POST', self::$api, [
+			'form_params' => [
+				'checkbalance' => 1,
+				'token' => self::$apiToken
+			]
+		]);
 
-            $responseArray = explode('||', $response->getBody());
+		$responseArray = explode('||', $response->getBody());
 
-            if (count($responseArray) > 1) {
-                $responseMessage = self::responseMessage($responseArray[0]);
-                throw new \Exception($responseMessage);
-            }
-        } catch (GuzzleException $e) {
-            dd($e->getMessage());
-        }
+		if (count($responseArray) > 1) {
+			$responseMessage = self::responseMessage($responseArray[0]);
+			throw new \Exception($responseMessage);
+		}
 
         return $response->getBody();
     }
