@@ -4,7 +4,7 @@ namespace AbdulmatinSanni\APIx\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class APIx extends Facade
+class APIxFacade extends Facade
 {
     /**
      * @return string

@@ -3,7 +3,7 @@
 namespace AbdulmatinSanni\APIx;
 
 use Illuminate\Support\ServiceProvider;
-
+use AbdulmatinSanni\APIx\Facades\APIxFacade;
 use AbdulmatinSanni\APIx\Commands\Log\DisplayCommand;
 use AbdulmatinSanni\APIx\Commands\Log\ClearCommand;
 
@@ -42,7 +42,7 @@ class APIxServiceProvider extends ServiceProvider
         );
 
         $this->app->bind('api-x', function () {
-            return new APIx;
+            return new APIxFacade;
         });
     }
 }
